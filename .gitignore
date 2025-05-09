@@ -18,3 +18,7 @@ metadata.json
 *.pem
 orca/
 .vscode
+container/__pycache__/
+container/result.db
+*.pyc
+.DS_Store

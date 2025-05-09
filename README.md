@@ -1,15 +1,8 @@
-# Orca Koii Task Template
-
-Extension of Koii Task Template for developing Orca Tasks.
-
-## New to Koii Tasks? Have questions about how tasks work under the hood?
-
-If you're developing your first task, we recommend you gr through Lesson 1 of the [EZSandbox](https://github.com/koii-network/ezsandbox) before diving into Orca. This will give you a good grounding in how tasks work. If you'd like to dive deeper, check out our [docs](https://www.koii.network/docs/concepts/what-are-tasks/what-are-tasks).
+# Orca Koii Task for Backtesting CoinHarbour's Algo Trading Strategy
 
 ### Task Functions
 
-Every Koii Task must perform 4 functions:
-
+Perform 4 functions:
 1. Task
 2. Submission
 3. Audit
@@ -50,21 +43,3 @@ Your container must have 4 HTTP endpoints:
 - `/task/:roundNumber`. This endpoint should kick off the task each round, and store the result of the task (your proofs) with the round number, so it can be retrieved by `submission`.
 - `/submission/:roundNumber` Retrieves the stored submission data.
 - `/audit`: Check the submission (using whatever method makes sense for your task) and return a boolean representing whether or not the submission was correct.
-
-### Creating the Container
-
-#### Container Image
-
-When your container is ready, build it and upload it to a container repository like Docker Hub. Add your container image URL in `src/orcaSettings.js`.
-
-#### PodSpec
-
-If you have a more complex configuration, you can define a podSpec in `src/orcaSettings.js`; an example is provided. If you supply both an image URL and a podSpec, the podSpec will take precedence.
-
-<!-- ### SSL (optional)
-
-If you would like to use SSL, specify a certificate for rootCA. -->
-
-### Deploy Task
-
-Deploy your task using the `create-task-cli` tool. Full instructions are available [here](https://github.com/koii-network/ezsandbox/blob/main/Lesson%201/PartIV.md).

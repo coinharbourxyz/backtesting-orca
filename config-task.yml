@@ -5,10 +5,10 @@
 
 ## Task Name ##
 # Maximum 24 characters.
-task_name: 'Hello World Orca'
+task_name: 'CoinHarbour Backtesting Engine'
 
 ## Task Author ##
-author: 'Koii'
+author: 'Parth | CoinHarbour'
 
 # Task Description Markdown ##
 # If you specify a markdown file, the description field will be ignored.
