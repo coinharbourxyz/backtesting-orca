@@ -20,7 +20,7 @@ orca/
 .vscode
 container/__pycache__/
 container/result.db
-container/timestamp_mapping.json
-container/combined_data.parquet
+*.parquet
+*.json
 *.pyc
 .DS_Store
