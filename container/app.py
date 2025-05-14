@@ -2,11 +2,11 @@ from base import TradingAlgorithm
 from flask import Flask, request, jsonify, g
 import sqlite3, json
 import signal, sys
+import numpy as np
 
 app = Flask(__name__)
-
-DATABASE = "results.db"
 trading_algorithm = TradingAlgorithm()
+DATABASE = "results.db"
 
 def _setup_signals():
     signal.signal(signal.SIGTERM, _handle_sigterm)
@@ -17,6 +17,7 @@ def _handle_sigterm(signum, frame):
     trading_algorithm._on_algo_stop()
     # request.environ.get('werkzeug.server.shutdown')
     sys.exit(0)
+
 
 def clear_db():
     # if "db" in g:
@@ -53,6 +54,7 @@ def home():
 
 @app.post("/healthz")
 def health_check():
+    print("Health check")
     return "OK"
 
 
@@ -60,8 +62,11 @@ def health_check():
 def start_task(roundNumber):
     print("Task started for round: " + roundNumber)
     nav_data = trading_algorithm.run()
-    nav_data_json = json.dumps(nav_data) 
+    nav_array = np.array(nav_data)
+    returns = (nav_array[-1] / nav_array[0])
+    nav_data.append(returns)
 
+    nav_data_json = json.dumps(nav_data) 
     print("nav_data: ", nav_data_json)
 
     db = get_db()
@@ -87,8 +92,8 @@ def fetch_submission(roundNumber):
     close_db()
     print("Result: ", result)
     if result:
-        submission_array = json.loads(result["submission"]) 
-        return jsonify({"message": submission_array})
+        nav_data = json.loads(result["submission"])
+        return jsonify({"message": nav_data})
     else:
         return "Submission not found", 404
 
@@ -97,7 +102,13 @@ def fetch_submission(roundNumber):
 def audit_submission(roundNumber):
     print("Auditing submission")
     data = request.get_json()
-    audit_result = data["submission"]["message"] == "#"+roundNumber
+    # submission_data = data["submission"]["message"]
+    submission_data = data["message"]
+    
+    returns = submission_data[-1]
+    calc_returns = submission_data[-2] / submission_data[0]
+
+    audit_result = (calc_returns - returns < 0.01)
     # audit result must be a boolean
     return jsonify(audit_result)
 

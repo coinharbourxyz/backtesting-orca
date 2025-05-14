@@ -7,8 +7,8 @@ INTERVAL_IN_SECONDS = int(os.getenv("INTERVAL", "604800"))
 ASSETS = os.getenv("ASSETS", "ETH,BTC").split(",")
 
 # Backtest Input Parameters
-start_time = os.getenv("START_TIME", "2017-01-01")
-end_time = os.getenv("END_TIME", "2024-12-31")
+start_time = os.getenv("START_TIME", "2020-01-01")
+end_time = os.getenv("END_TIME", "2020-12-31")
 initial_balance = float(os.getenv("INITIAL_BALANCE", "1000"))
 
 ################################ GLOBAL VARIABLES #########################

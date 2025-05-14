@@ -28,9 +28,9 @@ class TradingAlgorithm:
     #     signal.signal(signal.SIGTERM, self._handle_sigterm)
     #     signal.signal(signal.SIGINT, self._handle_sigterm)
 
-    # def _handle_sigterm(self, signum, frame):
-    #     self.running = False
-    #     self._on_algo_stop()
+    def _handle_sigterm(self, signum, frame):
+        self.running = False
+        self._on_algo_stop()
 
     def _on_algo_start(self):
         Analysis(

@@ -73,7 +73,10 @@ def load_filtered_data(assets: list[str]):
     mask = (base_df["timestamp"] >= start_time_dt) & (
         base_df["timestamp"] <= end_time_dt
     )
-    base_df = base_df.loc[mask].reset_index(drop=True)
+
+    base_df = base_df.loc[mask]
+    base_df = base_df.reset_index(drop=True)
+    # base_df = base_df.loc[mask].reset_index(drop=True)
 
     if base_df.empty:
         raise KeyboardInterrupt

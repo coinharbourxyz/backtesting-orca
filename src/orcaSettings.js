@@ -2,7 +2,7 @@ import { TASK_ID, namespaceWrapper } from '@_koii/namespace-wrapper';
 const podId = TASK_ID;
 import 'dotenv/config';
 
-const imageURL = 'docker.io/labrocadabro/orca-hello-world:1.1';
+const imageURL = 'docker.io/parthajmera132/orca-backtesting-dev:latest';
 
 async function createPodSpec() {
   const basePath = await namespaceWrapper.getBasePath();
@@ -42,7 +42,8 @@ export async function getConfig() {
   return {
     imageURL: imageURL,
     // if you don't need to use a podSpec, you can set customPodSpec to null
-    customPodSpec: await createPodSpec(),
+    // customPodSpec: await createPodSpec(),
+    customPodSpec: null,
     rootCA: null,
   };
 }

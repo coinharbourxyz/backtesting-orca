@@ -19,7 +19,8 @@ metadata.json
 orca/
 .vscode
 container/__pycache__/
-container/result.db
+# container/results.db
+*.db
 *.parquet
 *.json
 *.pyc
