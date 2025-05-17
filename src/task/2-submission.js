@@ -17,23 +17,23 @@ export async function submission(roundNumber) {
 
     const submission = result.data;
 
-    // if you are writing a KPL task, use namespaceWrapper.getSubmitterAccount("KPL");
-    const stakingKeypair = await namespaceWrapper.getSubmitterAccount();
-    const stakingKey = stakingKeypair.publicKey.toBase58();
+    // // if you are writing a KPL task, use namespaceWrapper.getSubmitterAccount("KPL");
+    // const stakingKeypair = await namespaceWrapper.getSubmitterAccount();
+    // const stakingKey = stakingKeypair.publicKey.toBase58();
 
-    // sign the submission
-    const signature = await namespaceWrapper.payloadSigning(
-      {
-        taskId: TASK_ID,
-        roundNumber: roundNumber,
-        stakingKey: stakingKey,
-        ...submission,
-      },
-      stakingKeypair.secretKey,
-    );
+    // // sign the submission
+    // const signature = await namespaceWrapper.payloadSigning(
+    //   {
+    //     taskId: TASK_ID,
+    //     roundNumber: roundNumber,
+    //     stakingKey: stakingKey,
+    //     ...submission,
+    //   },
+    //   stakingKeypair.secretKey,
+    // );
 
     // store the submission on IPFS
-    const cid = await storeFile({ signature }, 'submission.json');
+    const cid = await storeFile({ submission }, 'submission.json');
     console.log('SUBMISSION CID:', cid);
     return cid;
   } catch (error) {

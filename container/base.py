@@ -1,15 +1,17 @@
 import signal
 from config import (
+    BALANCE_USDC,
     ASSETS,
     POSITIONS,
     CURRENT_PRICE_INFO,
     get_current_timestamp,
     get_total_transaction_fees,
+    set_balance_usdc
 )
 from helpers import TradingHelper
 from input import MyAlgorithm
 from log_type import Analysis
-from ticker import get_current_ticker, get_latest_start_time
+from ticker import get_current_ticker, get_latest_start_time, reset_ticker
 
 
 class TradingAlgorithm:
@@ -96,6 +98,9 @@ class TradingAlgorithm:
 
     def run(self):
         # self._setup_signals()
+        set_balance_usdc(BALANCE_USDC)
+        reset_ticker()
+        self.__init__()
         self.running = True
         self._on_algo_start()
         try:
@@ -137,7 +142,6 @@ class TradingAlgorithm:
                     self.last_nav_timestamp += 604800
 
                 self.on_ticker_recd(current_ticker)
-            return self.nav_data
 
         except (KeyboardInterrupt, SystemExit):
             self.running = False

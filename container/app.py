@@ -13,9 +13,6 @@ def _setup_signals():
     signal.signal(signal.SIGINT, _handle_sigterm)
 
 def _handle_sigterm(signum, frame):
-    trading_algorithm.runnning = False
-    trading_algorithm._on_algo_stop()
-    # request.environ.get('werkzeug.server.shutdown')
     sys.exit(0)
 
 
@@ -90,24 +87,20 @@ def fetch_submission(roundNumber):
     )
     result = query.fetchone()
     close_db()
-    print("Result: ", result)
+
     if result:
         nav_data = json.loads(result["submission"])
         return jsonify({"message": nav_data})
     else:
         return "Submission not found", 404
 
-
-@app.post("/audit/<roundNumber>")
-def audit_submission(roundNumber):
+@app.post("/audit")
+def audit_submission():
     print("Auditing submission")
     data = request.get_json()
-    # submission_data = data["submission"]["message"]
-    submission_data = data["message"]
-    
+    submission_data = data["submission"]["message"]
     returns = submission_data[-1]
     calc_returns = submission_data[-2] / submission_data[0]
-
     audit_result = (calc_returns - returns < 0.01)
     # audit result must be a boolean
     return jsonify(audit_result)

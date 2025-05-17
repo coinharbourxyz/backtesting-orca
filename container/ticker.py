@@ -195,3 +195,7 @@ def get_current_ticker(assets: list[str] = None):
         return ticker_data
     except KeyboardInterrupt:
         raise
+
+def reset_ticker():
+    global current_index
+    current_index = 0
